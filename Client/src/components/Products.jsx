@@ -1,7 +1,7 @@
-import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import ProductCard from "./ProductCard"
+import { userRequest } from "../requestMethods"
 
 const Products = ({filterCategory, sortValue}) => {
   const {category} = useParams()
@@ -10,10 +10,10 @@ const Products = ({filterCategory, sortValue}) => {
   useEffect(()=>{
     (async()=>{
       if(filterCategory){
-        const res = await axios.get("http://localhost:3000/api/product")
+        const res = await userRequest.get(`${import.meta.env.VITE_SERVER_URL}/api/product`)
         setFilterProducts(res.data.filter(item=> Object.entries(filterCategory).every(([key,value])=> item[key].includes(value))))
       }else{
-        const res = await axios.get(category ? `http://localhost:3000/api/product?filter=${category}`: "http://localhost:3000/api/product")
+        const res = await userRequest.get(category ? `${import.meta.env.VITE_SERVER_URL}/api/product?filter=${category}`: `${import.meta.env.VITE_SERVER_URL}/api/product`)
         setProducts(res.data)
       }
       })()

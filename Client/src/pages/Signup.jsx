@@ -29,7 +29,7 @@ const Signup = () => {
   return (
     currentUser ? <Navigate to='/'/>: <div>
       <div className='flex justify-center items-center'>
-        <div className='bg-[url("img/sign-up.jpg")] bg-cover w-full h-screen opacity-50'></div>
+        <div style={{backgroundImage: `url("img/sign-up.jpg")`, backgroundPosition: "center", backgroundSize: "cover", opacity: "0.5", height: "100vh", width: "100%"}}></div>
       <div className='bg-white p-10 w-2/3 md:w-1/2 lg:w-1/3 space-y-4 absolute'>
         <h2 className='text-2xl'>Register</h2>
             <input type="text" placeholder='Username' name='username' className='text-sm w-full border rounded-md p-2' onChange={(e)=>setUser({...user, [e.target.name]: e.target.value})}/>

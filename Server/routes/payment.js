@@ -4,7 +4,7 @@ const Order = require('../models/Order');
 const router = express.Router()
 require('dotenv').config()
 const stripe = require('stripe')(process.env.STRIPE_KEY);
-const URL = process.env.SERVER_URL
+const URL = process.env.CLIENT_URL
 
 let endpointSecret;
 endpointSecret = process.env.WEBHOOK_ENDPOINT
