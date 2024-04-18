@@ -26,7 +26,7 @@ const Slider = () => {
       <div style={{transform: `translateX(${(value * -100)}vw)`, position: "relative", height: "90vh"}} className='transition-all'>
         
         <div className={`flex h-full`}>
-          <div className='bg-[url("img/bg-1.jpg")] bg-[#0000004d] w-auto bg-blend-darken bg-cover'>
+          <div style={{backgroundImage: `url("img/bg-1.jpg")`, backgroundColor: "#0000004d", backgroundPosition: "center", backgroundSize: "cover", backgroundBlendMode: "darken"}}>
             <div className='w-screen h-full flex justify-center sm:justify-end sm:pr-16 items-center'>
               <div className='text-center sm:text-left'>
                 <h1 className='text-3xl sm:text-5xl text-white'>Latest Brand Collection</h1>
@@ -35,7 +35,7 @@ const Slider = () => {
                 </div>
             </div>
           </div>
-          <div className='bg-[url("img/bg-2.jpg")] bg-[#0000004d] w-auto bg-blend-darken bg-cover'>
+          <div style={{backgroundImage: `url("img/bg-2.jpg")`, backgroundColor: "#0000004d", backgroundPosition: "center", backgroundSize: "cover", backgroundBlendMode: "darken"}}>
             <div className='w-screen h-full flex justify-center sm:justify-end sm:pr-16 items-center'>
               <div className='text-center sm:text-left'>
                 <h1 className='text-3xl sm:text-5xl text-white'>Best of Formal Wear</h1>
@@ -44,7 +44,7 @@ const Slider = () => {
                 </div>
             </div>
           </div>
-          <div className='bg-[url("img/bg-3.jpg")] bg-[#0000004d] w-auto bg-blend-darken bg-cover'>
+          <div style={{backgroundImage: `url("img/bg-3.jpg")`, backgroundColor: "#0000004d", backgroundPosition: "center", backgroundSize: "cover", backgroundBlendMode: "darken"}}>
             <div className='w-screen h-full flex justify-center sm:justify-end sm:pr-16 items-center'>
               <div className='text-center sm:text-left'>
                 <h1 className='text-3xl sm:text-5xl text-white'>Accessories that Enhances Your Lifestyle</h1>
