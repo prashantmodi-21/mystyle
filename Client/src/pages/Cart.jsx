@@ -16,7 +16,7 @@ const Cart = () => {
   const {products, total} = useSelector(state=>state.cart)
   const handleCheckout = async() =>{
     try {
-      const res = await fetch(import.meta.env.VITE_SERVER_URL,{
+      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/checkout/payment`,{
         method: "POST",
         headers:{
           "Content-Type": "application/json",
