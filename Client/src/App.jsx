@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import {Cart, Home, Product, Productlist, Signup, Login, Order} from './index'
 import { Provider } from 'react-redux'
@@ -19,7 +19,7 @@ function App() {
           <Route path='/cart' element={<Cart />}/>
           <Route path='/login' element={ <Login />}/>
           <Route path='/register' element={<Signup />}/>
-          <Route path='/order/' element={<Order />}/>
+          <Route path='/order' element={<Order />}/>
         </Routes>
       </BrowserRouter>
       </PersistGate>

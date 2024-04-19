@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 const Order = () => {
   const [message, setMessage] = useState()
   useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
+    const query = new URLSearchParams(location.search);
     if (query.get("success")) {
       setMessage("success");
     }else{
