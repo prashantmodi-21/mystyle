@@ -30,7 +30,7 @@ const Cart = () => {
         })
       })
       const data = await res.json()
-      location.assign = data.url
+      location.href = data.url
     } catch (error) {
       console.log(error)
     }
