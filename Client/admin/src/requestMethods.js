@@ -8,7 +8,6 @@ export const publicRequest = axios.create({
 
   let userRequest = axios.create({
       baseURL: URL,
-      timeout: 5000
   });
 
   userRequest.interceptors.request.use(function (config) {

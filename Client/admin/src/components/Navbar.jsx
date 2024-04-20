@@ -1,12 +1,5 @@
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import React from 'react'
 const Navbar = () => {
-  const navigate = useNavigate()
-  const {currentUser} = useSelector(state=>state.user)
-  useEffect(()=>{
-    !currentUser && navigate("/")
-  }, [currentUser])
   return (
     <>
   <nav>
