@@ -49,11 +49,11 @@ const Product = () => {
       <Topbar/>
       <Navbar/>
       {selectedProduct && <section id='product'>
-      <div className='flex flex-col md:flex-row m-10 lg:m-20'>
+      <div className='flex flex-col md:flex-row sm:m-10 lg:m-20'>
         <div className='md:mr-12'>
-            <img src={selectedProduct.image} alt={selectedProduct.title} className='w-full h-[40vh] md:w-[400px] md:h-[400px] object-cover'/>
+            <img src={selectedProduct.image} alt={selectedProduct.title} className='w-full h-[60vh] md:w-[400px] md:h-[400px] object-cover'/>
         </div>
-        <div className='space-y-8 font-medium'>
+        <div className='space-y-8 font-medium m-6 sm:m-0'>
             <h2 className='text-4xl'>{selectedProduct.title}</h2>
             <div className='flex justify-between items-center'>
                 <select className='text-xs p-1 border-2 border-black' onChange={(e)=>setSize(e.target.value)}>
@@ -75,7 +75,7 @@ const Product = () => {
             <button className='bg-blue-300 hover:bg-blue-400 border-2 border-black px-2 py-1 text-sm' onClick={()=>addToCart()}>ADD TO CART</button>
             </div>
             <div className='space-y-1'>
-              <p className='font-normal'>{selectedProduct.desc}</p>
+              <p className='font-normal text-sm'>{selectedProduct.desc}</p>
             </div>
         </div>
       </div>

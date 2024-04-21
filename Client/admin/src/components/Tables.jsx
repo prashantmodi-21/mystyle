@@ -14,7 +14,7 @@ const Tables = () => {
     }, [])
   return (
     <div>
-        <section className="py-1 bg-blueGray-50 flex">
+        <section className="py-1 bg-blueGray-50 flex flex-col lg:flex-row">
         <div className="w-full xl:w-6/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
             <div className="rounded-t mb-0 px-4 py-3 border-0">

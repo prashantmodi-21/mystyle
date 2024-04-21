@@ -19,15 +19,15 @@ const Productlist = () => {
       <Navbar/>
       <section id='product-list'>
         <h2 className='text-4xl mx-20 mt-4'>{category && category.slice(0, 1).toUpperCase()+category.substring(1)}</h2>
-        <div className='flex justify-between mx-10 sm:mx-20 my-8'>
-            <div className='flex'><h3 className='text-2xl mr-2'>Sort :</h3><select className='text-xs p-1 border-2 border-black' onChange={(e)=>setSortValue(e.target.value)}>
+        <div className='flex justify-between mx-4 sm:mx-20 my-6'>
+            <div className='flex'><h3 className='text-md sm:text-2xl mr-2'>Sort :</h3><select className='text-xs p-1 border-2 border-black' onChange={(e)=>setSortValue(e.target.value)}>
                 <option>--Select--</option>
                 <option value="asc">Price Low to High</option>
                 <option value="desc">Price High to Low</option>
                 <option value="new">Newest First</option>
             </select></div>
             <div className='space-x-2'>
-            <div className='flex'><h3 className='text-2xl mr-2'>Filter :</h3><select className='text-xs p-1 border-2 border-black' name='category' onChange={(e)=>handleCategory(e)}>
+            <div className='flex'><h3 className='text-md sm:text-2xl mr-2'>Filter :</h3><select className='text-xs p-1 border-2 border-black' name='category' onChange={(e)=>handleCategory(e)}>
                 <option>--Select--</option>
                 <option value="tshirt">T-Shirt</option>
                 <option value="shirt">Shirt</option>
