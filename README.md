@@ -1,6 +1,6 @@
 # MyStyle - A Fashion Store for Mens
 
-### [Live Site](https://https://mystyle.onrender.com)
+### [Live Site](https://mystyle.onrender.com)
 
 ![Mystyle- Home](https://i.postimg.cc/SNMZHbd5/home-mystle.png) 
 ![Mystyle- Category](https://i.postimg.cc/mgcFmTSz/category-mystyle.png)
