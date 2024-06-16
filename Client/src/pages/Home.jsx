@@ -6,18 +6,23 @@ import Navbar from '../components/Navbar'
 import Products from '../components/Products'
 import Slider from '../components/Slider'
 import Topbar from '../components/Topbar'
-import { useSelector } from 'react-redux'
-import { addMultipleProducts } from '../redux/apiCalls'
+import { useDispatch, useSelector } from 'react-redux'
+import { addMultipleProducts, getCartProducts } from '../redux/apiCalls'
 
 const Home = () => {
+  const dispatch = useDispatch()
   const initialized = useRef(false)
   const {currentUser} = useSelector(state=>state.user)
-  const {products} = useSelector(state=>state.cart)
+  const {products, total} = useSelector(state=>state.cart)
   useEffect(()=>{
     if(!initialized.current){
       initialized.current = true
-      currentUser && products.length > 0 && addMultipleProducts(products)
+      currentUser && products.length > 0 && addMultipleProducts({products, total})
     }
+  }, [currentUser])
+
+  useEffect(()=>{
+    currentUser && getCartProducts(dispatch)
   }, [currentUser])
   return (
     <>

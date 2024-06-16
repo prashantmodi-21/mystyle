@@ -8,41 +8,46 @@ const URL = process.env.CLIENT_URL
 let endpointSecret;
 endpointSecret = process.env.WEBHOOK_ENDPOINT
 
-router.post("/payment", async(req, res)=>{
-    const session = await stripe.checkout.sessions.create({
-      line_items: req.body.items.map((item)=>{
-          return {
-            price_data: {
-              currency: 'inr',
-              product_data: {
-                name: item.desc,
-              },
-              unit_amount: (item.amount)*100,
-            },
-            quantity: item.qty,
-          }
-        }
-      ),
-        mode: 'payment',
-        shipping_address_collection: {
-          allowed_countries: ['IN'],
+// ORDER PAYMENT GATEWAY
+
+router.post("/payment", async (req, res) => {
+  const session = await stripe.checkout.sessions.create({
+    line_items: req.body.items.map((item) => {
+      return {
+        price_data: {
+          currency: 'inr',
+          product_data: {
+            name: item.desc,
+          },
+          unit_amount: (item.amount) * 100,
         },
-        phone_number_collection: {
-          enabled: true,
-        },
-        success_url: `${URL}/order?success=true`,
-        cancel_url: `${URL}/order?failed=true`,
-      });
-      res.json(session)
+        quantity: item.qty,
+      }
+    }
+    ),
+    mode: 'payment',
+    shipping_address_collection: {
+      allowed_countries: ['IN'],
+    },
+    phone_number_collection: {
+      enabled: true,
+    },
+    success_url: `${URL}/order?success=true`,
+    cancel_url: `${URL}/order?failed=true`,
+  });
+  res.json(session)
 })
 
 
-const fulfillOrder = async(session, lineItems) => {
+const fulfillOrder = async (session, lineItems) => {
   // TODO: fill me in
-  const order = new Order({orders: lineItems.data.map((item)=>({desc: item.description, qty: item.quantity})), amount: session.amount_total/100, name: session.customer_details.name, phone: session.customer_details.phone, email: session.customer_details.email, address: session.customer_details.address})
+  const order = new Order({ orders: lineItems.data.map((item) => ({ desc: item.description, qty: item.quantity })), amount: session.amount_total / 100, name: session.customer_details.name, phone: session.customer_details.phone, email: session.customer_details.email, address: session.customer_details.address })
   await order.save()
 }
-router.post('/webhook', async(req, res) => {
+
+// PAYMENT WEBHOOK
+
+router.post('/webhook', async (req, res) => {
   const payload = {
     id: req.body.id,
     object: req.body.type,
@@ -51,22 +56,22 @@ router.post('/webhook', async(req, res) => {
   const sig = req.headers['stripe-signature'];
   let order;
   let eventType;
-  if(endpointSecret){
+  if (endpointSecret) {
 
     let event;
-  
-      try {
-        event = stripe.webhooks.constructEvent(payloadString, sig, endpointSecret);
-        order = event.data.object
-        eventType = event.type
-      } catch (err) {
-        console.log(`Webhook Error: ${err.message}`)
-        return res.status(400).send(`Webhook Error: ${err.message}`);
-      } 
+
+    try {
+      event = stripe.webhooks.constructEvent(payloadString, sig, endpointSecret);
+      order = event.data.object
+      eventType = event.type
+    } catch (err) {
+      console.log(`Webhook Error: ${err.message}`)
+      return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
   }
-  else{
-        order = req.body.data.object
-        eventType = req.body.type
+  else {
+    order = req.body.data.object
+    eventType = req.body.type
   }
 
   if (eventType === 'checkout.session.completed') {

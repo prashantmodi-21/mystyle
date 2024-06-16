@@ -1,6 +1,8 @@
 import { publicRequest, userRequest } from "../requestMethods"
-import { addProducts, deleteProducts, updateProducts } from "./cartRedux"
+import { addProducts, deleteProducts, getProducts, updateProducts } from "./cartRedux"
 import { addUserError, addUserStart, addUserSuccess, loginError, loginStart, loginSuccess } from "./userRedux"
+
+// USER LOGIN
 
 export const userLogin = async(dispatch, user) =>{
     dispatch(loginStart())
@@ -11,6 +13,9 @@ export const userLogin = async(dispatch, user) =>{
       dispatch(loginError())
     }
 }
+
+// ADD NEW USER
+
 export const addUser = async(dispatch, user) =>{
     dispatch(addUserStart())
     try {
@@ -20,34 +25,57 @@ export const addUser = async(dispatch, user) =>{
       dispatch(addUserError())
     }
 }
+
+// ADD CART PRODUCTS
+
 export const addCartProducts = async(dispatch, id, products) =>{
     try {
       const res = await userRequest.post(`/api/cart/${id}`, products)
-      dispatch(addProducts(products))
-    } catch (error) {
-      console.log(error)
-    }
-}
-export const updateCartProducts = async(dispatch, id, product, index) =>{
-    try {
-      const res = await userRequest.put(`/api/cart/${id}`, product)
-      dispatch(updateProducts({id, product}))
-    } catch (error) {
-      console.log(error)
-    }
-}
-export const deleteCartProducts = async(dispatch, product) =>{
-    try {
-      const res = await userRequest.delete(`/api/cart/${product._id}`)
-      dispatch(deleteProducts(product))
+      dispatch(addProducts(res.data.products[res.data.products.length - 1]))
     } catch (error) {
       console.log(error)
     }
 }
 
+// UPDATE CART PRODUCTS
+
+export const updateCartProducts = async(dispatch, id, index, product) =>{
+    try {
+      const res = await userRequest.put(`/api/cart/${id}`, product)
+      dispatch(updateProducts({id, index, product: res.data.products[res.data.products.length -1]}))
+    } catch (error) {
+      console.log(error)
+    }
+}
+
+// DELETE CART PRODUCTS
+
+export const deleteCartProducts = async(dispatch, product, index) =>{
+  console.log(product)
+    try {
+      const res = await userRequest.put(`/api/cart/delete/${product.item._id}`, product)
+      dispatch(deleteProducts({_id: product.item._id, price: product.item.price, index}))
+    } catch (error) {
+      console.log(error)
+    }
+}
+
+// ADD PRODUCTS TO USER CART
+
 export const addMultipleProducts = async(products)=>{
   try {
     const res = await userRequest.post(`/api/cart/`, products)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// GET USER CART PRODUCTS
+
+export const getCartProducts = async(dispatch)=>{
+  try {
+    const res = await userRequest.get("/api/cart/")
+    dispatch(getProducts(res.data[0]))
   } catch (error) {
     console.log(error)
   }

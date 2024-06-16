@@ -1,8 +1,10 @@
 const express = require('express')
 const User = require('../models/User')
 const Router = express.Router()
-const { body, validationResult } = require('express-validator');
+const { body } = require('express-validator');
 const jwt = require('jsonwebtoken')
+
+// UPDATE USER
 
 Router.put('/update', async(req, res)=>{
     try{
@@ -21,6 +23,9 @@ Router.put('/update', async(req, res)=>{
     }
     
 })
+
+// DELETE USER
+
 Router.delete('/delete', async(req, res)=>{
     try{
         if(req.headers.token){
@@ -37,6 +42,8 @@ Router.delete('/delete', async(req, res)=>{
         res.status(500).json(err)
     }
 })
+
+// GET SORTED USER
 
 Router.get("/", async(req,res)=>{
     try{
@@ -57,6 +64,9 @@ Router.get("/", async(req,res)=>{
         res.status(500).json(err)
     }
 })
+
+// GET A USER
+
 Router.get("/:id", async(req,res)=>{
     try{
         const token = jwt.verify(
@@ -76,6 +86,8 @@ Router.get("/:id", async(req,res)=>{
         res.status(500).json(err)
     }
 })
+
+// UPDATE USER BY ADMIN
 
 Router.put("/:id", body('username').isLength({min: 6}), body('name').isLength({min: 6}),
 body('email').isEmail(),
@@ -97,6 +109,9 @@ body('password').isLength({min: 6}), async(req, res)=>{
         res.status(500).json(err)
     }
 })
+
+// DELETE USER BY ADMIN
+
 Router.delete("/:id", async(req, res)=>{
     try{
         const token = jwt.verify(

@@ -12,27 +12,33 @@ const cartSlice = createSlice({
         addProducts:(state, action)=>{
             state.quantity += 1;
             state.products.push(action.payload)
-            state.total += action.payload.price * action.payload.quantity 
+            state.total += action.payload.price * action.payload.qty 
         },
         updateProducts:(state, action)=>{
-            state.total += action.payload.product.price * (action.payload.product.quantity - state.products[state.products.findIndex(item=> item._id === action.payload.id)].quantity)
-            state.products[action.payload.product.index ? action.payload.product.index : state.products.findIndex(item=> item._id === action.payload.id)] = action.payload.product
+            console.log(action.payload)
+            state.total += action.payload.product.price * (action.payload.product.qty - state.products[action.payload.index ? action.payload.index : state.products.findIndex(item=> item._id === action.payload.id)].qty)
+            state.products[action.payload.index ? action.payload.index : state.products.findIndex(item=> item._id === action.payload.id)] = action.payload.product
         },
         productsInc:(state, action)=>{
-            state.products[state.products.findIndex(item=> item._id === action.payload.id)] = action.payload.product
+            state.products[action.payload.index ? action.payload.index : state.products.findIndex(item=> item._id === action.payload.id)] = action.payload.product
             state.total += action.payload.product.price
         },
         productsDec:(state, action)=>{
-            state.products[state.products.findIndex(item=> item._id === action.payload.id)] = action.payload.product
+            state.products[action.payload.index ? action.payload.index : state.products.findIndex(item=> item._id === action.payload.id)] = action.payload.product
             state.total -= action.payload.product.price
         },
         deleteProducts:(state, action)=>{
             state.quantity -= 1;
-            state.products.splice(state.products.findIndex(item=> item._id === action.payload._id), 1)
             state.total -= action.payload.price
+            state.products.splice(action.payload.index ? action.payload.index : state.products.findIndex(item=> item._id === action.payload._id), 1)
+        },
+        getProducts: (state, action)=>{
+            state.products = action.payload.products,
+            state.quantity = action.payload.products.length
+            state.total = action.payload.total
         }
     }
 })
 
-export const {addProducts, updateProducts, deleteProducts, productsInc, productsDec} = cartSlice.actions
+export const {addProducts, updateProducts, deleteProducts, productsInc, productsDec, getProducts} = cartSlice.actions
 export default cartSlice.reducer
