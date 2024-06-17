@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import {Link} from 'react-router-dom'
+import { cleanUserCart } from '../redux/apiCalls'
 const Order = () => {
+  const dispatch = useDispatch()
   const [message, setMessage] = useState()
   useEffect(() => {
     const query = new URLSearchParams(location.search);
     if (query.get("success")) {
       setMessage("success");
+      cleanUserCart(dispatch)
     }else{
       setMessage(
         "failed"

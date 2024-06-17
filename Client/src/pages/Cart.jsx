@@ -22,10 +22,10 @@ const Cart = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({items: 
-          products.map((item)=>({
+          products.map((item, i)=>({
             qty: item.qty,
             amount: item.price,
-            desc: item.title + ", " + item.size,
+            desc: cartProducts[cartProducts.findIndex(i=> i._id === item.productId)]?.title + ", " + item.size,
           }))
         })
       })

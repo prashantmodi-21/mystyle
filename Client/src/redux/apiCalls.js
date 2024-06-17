@@ -1,5 +1,5 @@
 import { publicRequest, userRequest } from "../requestMethods"
-import { addProducts, deleteProducts, getProducts, updateProducts } from "./cartRedux"
+import { addProducts, cleanCart, deleteProducts, getProducts, updateProducts } from "./cartRedux"
 import { addUserError, addUserStart, addUserSuccess, loginError, loginStart, loginSuccess } from "./userRedux"
 
 // USER LOGIN
@@ -75,7 +75,18 @@ export const addMultipleProducts = async(products)=>{
 export const getCartProducts = async(dispatch)=>{
   try {
     const res = await userRequest.get("/api/cart/")
-    dispatch(getProducts(res.data[0]))
+    res.data[0] && dispatch(getProducts(res.data[0]))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// CLEAN USER CART
+
+export const cleanUserCart = async(dispatch)=>{
+  try {
+    await userRequest.delete("/api/cart/")
+    dispatch(cleanCart())
   } catch (error) {
     console.log(error)
   }

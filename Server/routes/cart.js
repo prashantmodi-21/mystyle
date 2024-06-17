@@ -80,7 +80,7 @@ Router.post("/", async (req, res) => {
                 userId: user.id,
                 products: req.body.products.map((item) => (
                     {
-                        productId: item._id,
+                        productId: item.productId,
                         size: item.size,
                         color: item.color,
                         qty: item.qty,

@@ -28,7 +28,7 @@ const Product = () => {
       }else if(cartProduct && cartProduct.size === size && cartProduct.color === color){
         updateCartProducts(dispatch, cartProduct._id, differProduct.length -1, {...cartProduct, productId: cartProduct.productId, size: differProduct[differProduct.length - 1].size, qty: differProduct[differProduct.length - 1].qty + qty, total: total + cartProduct.price})
       }else{
-        addCartProducts(dispatch, selectedProduct._id, {...selectedProduct, productId: selectedProduct._id, qty, size, color, total: total + (qty * selectedProduct.price)})
+        addCartProducts(dispatch, selectedProduct._id, {...selectedProduct, productId: selectedProduct.productId, qty, size, color, total: total + (qty * selectedProduct.price)})
       }
     }
     else{
